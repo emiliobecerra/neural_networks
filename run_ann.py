@@ -28,6 +28,8 @@ machine = Sequential()
 # We pick 512 arbitrarially as a starting number of features. There's going to be trial and errors
 # Sigmoid means the sigmoid activation function: digits are between 0 and 1.
 # Data.shape gets the number of pixels from the data: 784
+# activation function "relu" is a substitute for sigmoid. 
+# relu is non-linear, accepts inputs from negative infinity to positive infinity, isn't bounded to f(x)=1 so it obtains more information f(x) -> infinity
 machine.add(layers.Dense(512, 
 			activation="sigmoid",
 			input_shape=(data.shape[1],)
@@ -67,6 +69,25 @@ machine.fit(data, target, epochs=90, batch_size=64)
 # New_target is the prediction
 # Argmax, we're going to get a bunch of probabilities, we are still going to want the maximum probability. 
 # new_target = numpy.argmax(machine.predict(new_data), axis = -1)
+
+
+#Simulating real world with new data
+new_data = pandas.read_csv("new_data.csv")
+filename_list = new_data.iloc[:,-1].values
+new_data = new_data.iloc[:,:-1].values
+new_data = new_data/255.0
+
+prediction = numpy.argmax(machine.predict(new_data), axis = -1)
+
+result = pandas.DataFrame()
+result['filename'] = filename_list
+result['prediction'] = predict
+
+print(results)
+
+
+
+
 
 
 

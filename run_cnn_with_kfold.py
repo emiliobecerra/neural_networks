@@ -44,7 +44,11 @@ for training_index, test_index in kfold_object.split(data):
   machine.add(layers.Conv2D(32, kernel_size=(3, 3), activation="relu", input_shape=(28, 28, 1)))
   machine.add(layers.Conv2D(64, kernel_size=(3, 3), activation="relu"))
 
-
+  #Max pooling: using less data, to look at the digit with more essential information, to help the program make a predicition.
+    # It helps with the problem of overfitting. The program in way looks at the picture from "far away" or looking at the "big picture".
+  #Dropout: Let the program randomly drop 25% of the nodes when calculating the effect of a layer to the next layer. Also helps with overfitting. Helps reduce the jaggedness of the digit. 
+  machine.add(layers.MaxPooling2D(pool_size=(2, 2)))
+  machine.add(layers.Dropout(0.25))
   
   #We now need a layer to flatten back
   machine.add(layers.Flatten())
